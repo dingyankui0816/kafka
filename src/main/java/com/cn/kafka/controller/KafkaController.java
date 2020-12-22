@@ -2,6 +2,8 @@ package com.cn.kafka.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +21,8 @@ public class KafkaController {
     @Autowired
     private KafkaTemplate<String,Object> kafkaTemplate;
 
-    @RequestMapping(value = "/send-msg/{msg}",method = RequestMethod.GET)
-    public void sendKafka(@PathVariable String msg){
-        kafkaTemplate.send("test3",msg);
+    @RequestMapping(value = "/send-msg/{msg}/{key}",method = RequestMethod.GET)
+    public void sendKafka(@PathVariable String msg,@PathVariable String key){
+         kafkaTemplate.send("test3",key,msg);
     }
 }
