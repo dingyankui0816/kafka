@@ -2,7 +2,9 @@ package com.cn.kafka.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2020/12/18 11:00
  */
 @RestController
+@RequestMapping("/kafka")
 public class KafkaController {
 
     @Autowired
     private KafkaTemplate<String,Object> kafkaTemplate;
 
-    @RequestMapping()
-    public void sendKafka(){
-        kafkaTemplate.send("test3","Hello World ! 丁");
+    @RequestMapping(value = "/send-msg/{msg}",method = RequestMethod.GET)
+    public void sendKafka(@PathVariable String msg){
+        kafkaTemplate.send("test3",msg);
     }
 }
