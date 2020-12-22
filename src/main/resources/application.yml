@@ -1,0 +1,29 @@
+spring:
+  kafka:
+    bootstrap-servers: 172.27.144.185:9092,172.27.144.185:9093,172.27.144.185:9094
+    producer:
+      retries: 0
+      acks: 1
+      properties:
+        linger.ms: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      properties:
+        session:
+          timeout:
+            ms: 120000
+        request:
+          timeout:
+            ms: 180000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: test_1
+    listener:
+      ack-mode: manual_immediate
+logging:
+  config: classpath:logback/logback-spring-dev.xml
