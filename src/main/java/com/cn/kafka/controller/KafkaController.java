@@ -21,8 +21,8 @@ public class KafkaController {
     @Autowired
     private KafkaTemplate<String,Object> kafkaTemplate;
 
-    @RequestMapping(value = "/send-msg/{msg}/{key}",method = RequestMethod.GET)
-    public void sendKafka(@PathVariable String msg,@PathVariable String key){
-         kafkaTemplate.send("test3",key,msg);
+    @RequestMapping(value = "/send-msg/{msg}/{key}/{id}",method = RequestMethod.GET)
+    public void sendKafka(@PathVariable String msg,@PathVariable String key,@PathVariable Integer id){
+         kafkaTemplate.send("test3",id,key,msg);
     }
 }
